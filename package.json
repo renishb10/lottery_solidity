@@ -1,0 +1,17 @@
+{
+  "name": "inbox_sol",
+  "version": "1.0.0",
+  "description": "Solidity tryout",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Renish B",
+  "license": "ISC",
+  "dependencies": {
+    "ganache-cli": "^6.7.0",
+    "mocha": "^7.0.0",
+    "solc": "^0.6.1",
+    "web3": "^1.2.4"
+  }
+}
