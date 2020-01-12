@@ -81,5 +81,52 @@ describe('Lottery', () => {
         } catch (error) {
             assert.ok(error);
         }
-    })
+    });
+
+    it('only manager can call pickWinner', async() => {
+        try {
+            await lottery.methods.pickWinner().send({
+                from: accounts[0]
+            });
+            assert(false);
+        } catch (error) {
+            assert.ok(error);
+        }
+    });
+
+    it('send money to the winner and resets the player array', async() => {
+        await lottery.methods.enter().send({
+            from: accounts[0],
+            value: web3.utils.toWei('2', 'ether')
+        }); 
+
+        const initialBalance = await web3.eth.getBalance(accounts[0]);
+
+        await lottery.methods.pickWinner().send({
+            from: accounts[0]
+        });
+    });
+
+    // it('send money to the winner and resets the player array', async () => {
+    //     // await lottery.methods.enter().send({
+    //     //     from: accounts[0],
+    //     //     value: web3.utils.toWei('2', 'ether')
+    //     // });
+
+    //     // const initialBalance = await web3.eth.getBalance(accounts[0]);
+
+    //     // try {
+    //     //     await lottery.methods.pickWinner().send({
+    //     //         from: accounts[0]
+    //     //     });   
+    //     // } catch (error) {
+    //     //     console.log(error);
+    //     // }
+
+    //     // const finalBalance = await web3.eth.getBalance(accounts[0]);
+
+    //     // const diff = finalBalance - initialBalance;
+    //     // console.log(diff);
+    //     // assert(diff > web3.utils.toWei('1.8', 'ether'));
+    // });
 })
